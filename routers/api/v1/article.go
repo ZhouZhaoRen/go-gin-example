@@ -185,6 +185,7 @@ func DeleteArticle(c *gin.Context){
 			code=e.SUCCESS
 		}else{
 			code=e.ERROR_NOT_EXIST_ARTICLE
+			fmt.Println(e.GetMsg(code))
 		}
 	}
 	// 返回json数据

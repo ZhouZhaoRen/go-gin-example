@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-gin-example/models"
 	"go-gin-example/pkg/e"
+	"go-gin-example/pkg/logging"
 	"go-gin-example/pkg/util"
 	"log"
 	"net/http"
@@ -32,13 +33,14 @@ func GetAuth(c *gin.Context) {
 			// 用户存在，开始生成token
 			token, err := util.GenerateToken(username, password)
 			if err != nil {
-				fmt.Println("生成token失败：",err)
+				fmt.Println("生成token失败1：",err)
 				code = e.ERROR_AUTH_TOKEN
 			} else {
 				data["token"] = token
 				code=e.SUCCESS
 			}
 		} else {
+			logging.Info(e.GetMsg(code))
 			code = e.ERROR_AUTH
 		}
 	} else { //

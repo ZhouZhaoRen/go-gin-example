@@ -23,7 +23,7 @@ func InitRouter() *gin.Engine{
 
 
 	apiv1:=r.Group("/api/v1")
-	apiv1.Use(jwt.JWT())
+	apiv1.Use(jwt.JWT()) // 在这里添加中间件，每次执行都会先走这里进行token验证
 	{
 		// 对标签的操作
 		// 获取标签列表

@@ -8,6 +8,7 @@ import (
 )
 
 func main(){
+
 	//router:=gin.Default() // 相当于创建了一个路由Handlers.可以后期绑定各类的路由规则和函数、中间件等
 	//router.GET("/test", func(c *gin.Context) {
 	//	c.JSON(200,gin.H{
