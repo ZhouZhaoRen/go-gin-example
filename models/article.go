@@ -17,6 +17,7 @@ type Article struct {
 	ModifiedBy string `json:"modified_by"`
 	State int `json:"state"`
 }
+// 由于手动实现了callback函数，这里的已经没有用了
 //artilce的callback函数
 func (article *Article) BeforeCreate(scope *gorm.Scope)error{
 	scope.SetColumn("CreatedOn",time.Now().Unix())
@@ -33,13 +34,16 @@ func (article *Article) BeforeDelete(scope *gorm.Scope)error{
 }
 
 // 通过id判断文章是否存在
-func ExistArticleByID(id int)bool{
+func ExistArticleByID(id int)(bool,error){
 	var article Article
-	db.Select("id").Where("id=?",id).First(&article)
-	if article.ID>0{
-		return true
+	err:=db.Select("id").Where("id=?",id).First(&article).Error
+	if err!=nil && err!=gorm.ErrRecordNotFound{
+		return false,err
 	}
-	return false
+	if article.ID>0{
+		return true,nil
+	}
+	return false,nil
 }
 
 // 统计符合条件的文章总数
@@ -63,9 +67,10 @@ func GetArticle(id int)(article Article){
 }
 
 // 通过id去修改文章
-func EditArticle(id int,maps interface{})bool{
-	db.Model(&Article{}).Where("id=?",id).Update(maps)
-	return true
+func EditArticle(id int,maps interface{})error{
+	err:=db.Model(&Article{}).Where("id=?",id).Update(maps).Error
+
+	return err
 }
 
 // 添加文章
@@ -86,4 +91,10 @@ func AddArticle(data map[string]interface{})bool{
 func DeleteArticle(id int)bool{
 	db.Where("id=?",id).Delete(&Article{})
 	return true
+}
+
+// 删除deletedOn不为0的数据
+func DeleteArticles()bool{
+	db.Unscoped().Where("deleted_on != ?",0).Delete(&Article{})
+	return  true
 }
