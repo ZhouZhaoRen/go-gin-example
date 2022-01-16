@@ -68,14 +68,14 @@ func Setup() {
 	if err != nil {
 		log.Fatalf("Fail to parse 'conf/app.ini': %v", err)
 	}
-
+	// 解析App部分
 	err = Cfg.Section("app").MapTo(AppSetting)
 	if err != nil {
 		log.Fatalf("Cfg.MapTo AppSetting err: %v", err)
 	}
 
 	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024 * 1024 // 图片最大为多少MB
-
+	// 解析server部分
 	err = Cfg.Section("server").MapTo(ServerSetting)
 	if err != nil {
 		log.Fatalf("Cfg.MapTo ServerSetting err: %v", err)
@@ -83,12 +83,12 @@ func Setup() {
 
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
 	ServerSetting.WriteTimeout = ServerSetting.WriteTimeout * time.Second
-
+	// 解析database部分
 	err = Cfg.Section("database").MapTo(DatabaseSetting)
 	if err != nil {
 		log.Fatalf("Cfg.MapTo DatabaseSetting err: %v", err)
 	}
-
+	// 解析Redis部分
 	err = Cfg.Section("redis").MapTo(RedisSetting)
 	if err != nil {
 		log.Fatalf("Cfg.MapTo DatabaseSetting err: %v", err)

@@ -1,5 +1,6 @@
 package v1
 
+// 标签tag的专属controller层
 import (
 	"fmt"
 	"go-gin-example/pkg/app"
@@ -21,11 +22,11 @@ func GetTags(c *gin.Context) {
 	appG := app.Gin{C: c}
 	name := c.Query("name")
 
-	maps := make(map[string]interface{})
-	data := make(map[string]interface{})
+	//maps := make(map[string]interface{})
+	///data := make(map[string]interface{})
 
 	if name != "" {
-		maps["name"] = name
+		//maps["name"] = name
 	}
 	//
 	//var state int = -1
@@ -33,10 +34,10 @@ func GetTags(c *gin.Context) {
 
 	if arg := c.Query("state"); arg != "" {
 		state = com.StrTo(arg).MustInt()
-		maps["state"] = state
+		//maps["state"] = state
 	}
 
-	code := e.SUCCESS
+	//code := e.SUCCESS
 	tagService := tag_service.Tag{
 		Name:     name,
 		State:    state,
@@ -60,12 +61,12 @@ func GetTags(c *gin.Context) {
 		"count": count,
 	})
 
-	// 返回json数据
-	c.JSON(http.StatusOK, gin.H{
-		"code": code,
-		"msg":  e.GetMsg(code),
-		"data": data,
-	})
+	// 返回json数据 有了上面的，这里变的多余了
+	//c.JSON(http.StatusOK, gin.H{
+	//	"code": code,
+	//	"msg":  e.GetMsg(code),
+	//	"data": tags,
+	//})
 }
 
 // AddFormTag 定义一个结构体接收前端传过来的结构体

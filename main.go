@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-contrib/pprof"
 	"go-gin-example/models"
 	"go-gin-example/pkg/gredis"
 	"go-gin-example/pkg/logging"
 	"go-gin-example/pkg/setting"
 	"go-gin-example/routers"
 	"net/http"
+	_ "net/http/pprof"
 )
 
 func main() {
-
+	//cronStart()
 	// 初始化系统设置
 	setting.Setup()
 	// 初始化数据库设置
@@ -28,6 +30,7 @@ func main() {
 	//	})
 	//})
 	router := routers.InitRouter()
+	pprof.Register(router)
 
 	s := &http.Server{
 		Addr:           fmt.Sprintf(":%d", setting.ServerSetting.HttpPort), // 监听的TCP地址

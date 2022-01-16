@@ -7,7 +7,7 @@ import (
 	"time"
 )
 // 要开启定时任务的时候，这里要改为main方法
-func main2() {
+func cronStart() {
 	log.Println("Starting ...")
 
 	c := cron.New()
@@ -22,7 +22,7 @@ func main2() {
 		models.DeleteTags()
 	})
 	// 启动定时器
-	c.Run()
+	c.Start()
 
 	// 为了阻塞主程序，下面两种方法都可以
 	//select {

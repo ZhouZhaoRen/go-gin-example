@@ -5,6 +5,19 @@
 		},
 		{
 			"path": "..\\..\\..\\..\\..\\golearn1\\src\\go-programming-language"
+		},
+		{
+			"name": ".leetcode",
+			"path": "C:\\Users\\76251\\.leetcode"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\golearn1\\src\\tour"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\golearn1\\src\\blog-servcie"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\762513\\Desktop\\GoWeb实战教程学习资料\\go博客bilibili\\Ginblog"
 		}
 	],
 	"settings": {}

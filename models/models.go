@@ -2,11 +2,12 @@ package models
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"go-gin-example/pkg/setting"
 	"log"
 	"time"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 var db *gorm.DB
@@ -53,7 +54,7 @@ func CloseDB() {
 // 实现Callbacks 创建的时候触发这个函数  创建的时候创建和修改时间都得改变
 func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 	if !scope.HasError() {
-		nowTime := time.Now().Unix()
+		nowTime := time.Now().Unix() // 创建当前时间的时间戳
 		// 创建时间
 		if createTimeField, ok := scope.FieldByName("CreatedOn"); ok {
 			if createTimeField.IsBlank {
@@ -70,7 +71,7 @@ func updateTimeStampForCreateCallback(scope *gorm.Scope) {
 }
 
 // 修改的时候触发这个函数  修改的时候只需要改变修改时间
-func updateTimeStampForUpdateCallback(scope *gorm.Scope){
+func updateTimeStampForUpdateCallback(scope *gorm.Scope) {
 	if _, ok := scope.Get("gorm:update_column"); !ok {
 		scope.SetColumn("ModifiedOn", time.Now().Unix())
 	}
